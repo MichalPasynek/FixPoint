@@ -8,6 +8,7 @@ public class FixPointApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FixPointApplication.class, args);
+
 	}
 
 }
