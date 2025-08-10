@@ -4,16 +4,39 @@ server:
 spring:
   application:
     name: FixPoint
+
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 
   redis:
-    host: ${REDIS_HOST}
-    port: 6379
+    url: redis://${REDIS_HOST}:6379
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/fixpoint-realm
+
+      client:
+        registration:
+
+          fixpoint-client:
+            provider: keycloak
+            client-id: fixpoint-client
+            client-secret: EBy7anGEIzWfiV4xHVCgz3XR2PsVJSKm
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,email
+
+        provider:
+
+          keycloak:
+            issuer-uri: http://localhost:8081/realms/fixpoint-realm
