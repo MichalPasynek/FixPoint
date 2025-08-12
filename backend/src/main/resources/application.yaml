@@ -21,9 +21,13 @@ spring:
 
   security:
     oauth2:
-      resourceserver:
+      resource server:
         jwt:
           issuer-uri: http://localhost:8081/realms/fixpoint-realm
+#          opaque token:
+#            client-id: fixpoint-client
+#            client-secret: EBy7anGEIzWfiV4xHVCgz3XR2PsVJSKm
+#            introspection-uri: http://localhost:8081/realms/fixpoint-realm/protocol/openid-connect/token/introspect
 
       client:
         registration:

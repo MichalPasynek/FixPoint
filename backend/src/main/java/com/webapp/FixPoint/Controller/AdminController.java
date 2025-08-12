@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     @GetMapping("/hello")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('admin')")
     public String sayHello() {
         return "Hello from admin endpoint!";
     }
