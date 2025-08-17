@@ -6,9 +6,9 @@ spring:
     name: FixPoint
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    #    url: ${SPRING_DATASOURCE_URL}
+    #    username: ${SPRING_DATASOURCE_USERNAME}
+    #    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -17,30 +17,42 @@ spring:
     show-sql: true
 
   redis:
-    url: redis://${REDIS_HOST}:6379
+  #    url: redis://${REDIS_HOST}:6379
 
   security:
     oauth2:
-      resource server:
+      resourceserver:
         jwt:
           issuer-uri: http://localhost:8081/realms/fixpoint-realm
-#          opaque token:
-#            client-id: fixpoint-client
-#            client-secret: EBy7anGEIzWfiV4xHVCgz3XR2PsVJSKm
-#            introspection-uri: http://localhost:8081/realms/fixpoint-realm/protocol/openid-connect/token/introspect
-
       client:
         registration:
-
           fixpoint-client:
             provider: keycloak
             client-id: fixpoint-client
-            client-secret: EBy7anGEIzWfiV4xHVCgz3XR2PsVJSKm
+            client-secret: nha2XygqzYTly5faTBLhuXoXEyUdzgWe
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-            scope: openid,profile,email
-
+            scope: openid, profile, email
         provider:
-
           keycloak:
             issuer-uri: http://localhost:8081/realms/fixpoint-realm
+            authorization-uri: http://localhost:8081/realms/fixpoint-realm/protocol/openid-connect/auth
+            token-uri: http://localhost:8081/realms/fixpoint-realm/protocol/openid-connect/token
+            user-info-uri: http://localhost:8081/realms/fixpoint-realm/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8081/realms/fixpoint-realm/protocol/openid-connect/certs
+
+springdoc:
+  swagger-ui:
+    oauth2-redirect-url: http://localhost:8080/swagger-ui/oauth2-redirect.html
+    oauth:
+      client-id: fixpoint-client
+      client-secret: nha2XygqzYTly5faTBLhuXoXEyUdzgWe
+    operationsSorter: method
+    tagsSorter: alpha
+    display-request-duration: true
+
+logging:
+  level:
+    org.keycloak.adapters: DEBUG
+    org.keycloak.authorization: DEBUG
+    org.springframework.security: DEBUG
