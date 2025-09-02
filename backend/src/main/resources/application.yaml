@@ -6,18 +6,15 @@ spring:
     name: FixPoint
 
   datasource:
-    #    url: ${SPRING_DATASOURCE_URL}
-    #    username: ${SPRING_DATASOURCE_USERNAME}
-    #    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/fixpoint}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:your_secure_password}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
-
-  redis:
-  #    url: redis://${REDIS_HOST}:6379
 
   security:
     oauth2:
@@ -51,8 +48,9 @@ springdoc:
     tagsSorter: alpha
     display-request-duration: true
 
-logging:
-  level:
-    org.keycloak.adapters: DEBUG
-    org.keycloak.authorization: DEBUG
-    org.springframework.security: DEBUG
+#logging:
+#  level:
+#    org.keycloak.adapters: DEBUG
+#    org.keycloak.authorization: DEBUG
+#    org.springframework.security: DEBUG
+#debug: true
